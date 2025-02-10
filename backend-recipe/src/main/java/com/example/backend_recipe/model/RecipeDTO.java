@@ -1,14 +1,19 @@
 package com.example.backend_recipe.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecipeDTO {
     private Long id;
     private String title;
     private String description;
+    private List<Long> likes = new ArrayList<>();
 
-    public RecipeDTO(Long id, String title, String description) {
+    public RecipeDTO(Long id, String title, String description, List<Long> likes) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.likes = likes;
     }
 
     public Long getId() {
@@ -33,5 +38,13 @@ public class RecipeDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Long> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Long> likes) {
+        this.likes = likes;
     }
 }

@@ -14,7 +14,7 @@ public class Recipe {
     private Long id;
     private String title;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="column_id", nullable = false)
+    @JoinColumn(name="customer_id", nullable = false)
     private Customer customer;
     private String image;
     private String description;

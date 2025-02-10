@@ -25,6 +25,11 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    public Customer findCustomerById(Long customerId){
+        return customerRepository.findById(customerId)
+                .orElseThrow(()->new CustomerNotFoundException("Customer with id " + customerId + " not found"));
+    }
+
     public ResponseEntity<Map<String, String>> createCustomer(Customer customer){
         if(customerRepository.existsByEmail(customer.getEmail())){
             throw new EmailAlreadyExistsException("Email already exists. Try a different email");
@@ -60,7 +65,8 @@ public class CustomerService {
                                 .map(recipe -> new RecipeDTO(
                                         recipe.getId(),
                                         recipe.getTitle(),
-                                        recipe.getDescription()
+                                        recipe.getDescription(),
+                                        recipe.getLikes()
                                 )).collect(Collectors.toList())
                 )).collect(Collectors.toList());
         return ResponseEntity.ok(customerDTOS);
