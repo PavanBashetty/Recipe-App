@@ -1,6 +1,7 @@
 package com.example.backend_recipe.controller;
 
 import com.example.backend_recipe.model.Customer;
+import com.example.backend_recipe.model.CustomerDTO;
 import com.example.backend_recipe.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers(){
+    public ResponseEntity<List<CustomerDTO>> getAllCustomers(){
         return customerService.getAllCustomers();
     }
 

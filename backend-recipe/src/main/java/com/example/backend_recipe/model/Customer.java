@@ -21,10 +21,11 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(String fullName, String password, String email) {
+    public Customer(String fullName, String password, String email, List<Recipe> recipes) {
         this.fullName = fullName;
         this.password = password;
         this.email = email;
+        this.recipes = recipes;
     }
 
     public Long getId() {
@@ -53,6 +54,14 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 
     @Override

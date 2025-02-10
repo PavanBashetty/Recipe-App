@@ -3,6 +3,8 @@ package com.example.backend_recipe.service;
 import com.example.backend_recipe.exceptions.CustomerNotFoundException;
 import com.example.backend_recipe.exceptions.EmailAlreadyExistsException;
 import com.example.backend_recipe.model.Customer;
+import com.example.backend_recipe.model.CustomerDTO;
+import com.example.backend_recipe.model.RecipeDTO;
 import com.example.backend_recipe.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -46,11 +46,23 @@ public class CustomerService {
         }
     }
 
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
         if(customers.isEmpty()){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(Collections.emptyList());
         }
-        return ResponseEntity.ok(customers);
+        List<CustomerDTO> customerDTOS = customers.stream()
+                .map(customer -> new CustomerDTO(
+                        customer.getId(),
+                        customer.getFullName(),
+                        customer.getEmail(),
+                        customer.getRecipes().stream()
+                                .map(recipe -> new RecipeDTO(
+                                        recipe.getId(),
+                                        recipe.getTitle(),
+                                        recipe.getDescription()
+                                )).collect(Collectors.toList())
+                )).collect(Collectors.toList());
+        return ResponseEntity.ok(customerDTOS);
     }
 }
