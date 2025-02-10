@@ -2,6 +2,8 @@ package com.example.backend_recipe.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "customer", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
@@ -14,6 +16,8 @@ public class Customer {
     private String fullName;
     private String password;
     private String email;
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recipe> recipes;
 
     public Customer() {}
 

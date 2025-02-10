@@ -25,6 +25,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(RecipeNotFoundException.class)
+    public ResponseEntity<Map<String,String>> recipeNotFoundException(RecipeNotFoundException ex){
+        Map<String,String> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String,String>> handleGeneralException(Exception ex){
         Map<String,String> response = new HashMap<>();
