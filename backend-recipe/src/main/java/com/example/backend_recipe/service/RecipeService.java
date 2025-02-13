@@ -1,7 +1,9 @@
 package com.example.backend_recipe.service;
 
+import com.example.backend_recipe.config.JwtUtil;
 import com.example.backend_recipe.exceptions.CustomerNotFoundException;
 import com.example.backend_recipe.exceptions.RecipeNotFoundException;
+import com.example.backend_recipe.exceptions.UnAuthorizedException;
 import com.example.backend_recipe.model.Customer;
 import com.example.backend_recipe.model.Recipe;
 import com.example.backend_recipe.model.RecipeDTO;
@@ -20,14 +22,23 @@ public class RecipeService {
 
     private final RecipeRepository recipeRepository;
     private final CustomerRepository customerRepository;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository, CustomerRepository customerRepository){
+    public RecipeService(RecipeRepository recipeRepository, CustomerRepository customerRepository, JwtUtil jwtUtil){
         this.recipeRepository = recipeRepository;
         this.customerRepository = customerRepository;
+        this.jwtUtil = jwtUtil;
     }
 
-    public ResponseEntity<Map<String,String>> createRecipe(Recipe recipe, Customer customer){
+    public ResponseEntity<Map<String,String>> createRecipe(Recipe recipe, Customer customer, String token){
+
+        //Email from the token
+        String emailFromToken = jwtUtil.extractEmail(token);
+        if(!customer.getEmail().equals(emailFromToken)){
+            throw new UnAuthorizedException("You are not allowed to perform this action for this customer");
+        }
+
 
         Recipe newRecipe = new  Recipe();
         newRecipe.setTitle(recipe.getTitle());

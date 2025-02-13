@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/recipe")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class RecipeController {
 
     private final RecipeService recipeService;
@@ -27,9 +28,10 @@ public class RecipeController {
 
     //works
     @PostMapping("/customer/{customerId}")
-    public ResponseEntity<Map<String,String>> createRecipe(@RequestBody Recipe recipe, @PathVariable Long customerId){
+    public ResponseEntity<Map<String,String>> createRecipe(@RequestBody Recipe recipe, @PathVariable Long customerId, @RequestHeader("Authorization") String token){
         Customer customer = customerService.findCustomerById(customerId);
-        return recipeService.createRecipe(recipe,customer);
+        String extractedToken = token.substring(7);
+        return recipeService.createRecipe(recipe,customer, extractedToken);
     }
 
     //works

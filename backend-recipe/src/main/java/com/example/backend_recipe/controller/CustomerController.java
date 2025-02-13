@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+//Have this accessed via admin
 @RestController
 @RequestMapping("/api/customer")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -21,10 +23,10 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping
-    public ResponseEntity<Map<String,String>> createCustomer(@RequestBody Customer customer){
-        return customerService.createCustomer(customer);
-    }
+//    @PostMapping
+//    public ResponseEntity<Map<String,String>> createCustomer(@RequestBody Customer customer){
+//        return customerService.createCustomer(customer);
+//    }
 
     @DeleteMapping("/{customerId}")
     public ResponseEntity<String> deleteCustomer(@PathVariable Long customerId){

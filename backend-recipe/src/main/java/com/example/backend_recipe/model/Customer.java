@@ -18,14 +18,17 @@ public class Customer {
     private String email;
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Customer() {}
 
-    public Customer(String fullName, String password, String email, List<Recipe> recipes) {
+    public Customer(String fullName, String password, String email, List<Recipe> recipes, Role role) {
         this.fullName = fullName;
         this.password = password;
         this.email = email;
         this.recipes = recipes;
+        this.role = role;
     }
 
     public Long getId() {
@@ -64,6 +67,14 @@ public class Customer {
         this.recipes = recipes;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -73,4 +84,6 @@ public class Customer {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+
 }
