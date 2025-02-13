@@ -33,12 +33,11 @@ public class RecipeService {
 
     public ResponseEntity<Map<String,String>> createRecipe(Recipe recipe, Customer customer, String token){
 
-        //Email from the token
+        //email from token
         String emailFromToken = jwtUtil.extractEmail(token);
         if(!customer.getEmail().equals(emailFromToken)){
-            throw new UnAuthorizedException("You are not allowed to perform this action for this customer");
+            throw new UnAuthorizedException("You are not allowed to perform this action for this customer!!");
         }
-
 
         Recipe newRecipe = new  Recipe();
         newRecipe.setTitle(recipe.getTitle());
@@ -64,19 +63,39 @@ public class RecipeService {
         return ResponseEntity.ok(recipeDTO);
     }
 
-    public ResponseEntity<String> deleteRecipe(Long recipeId){
-        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
-        if(recipe.isPresent()){
-            recipeRepository.deleteById(recipeId);
-            return ResponseEntity.ok("Recipe deleted");
-        }else{
-            throw new RecipeNotFoundException("Recipe with " + recipeId + " not found");
+    public ResponseEntity<String> deleteRecipe(Long recipeId, String token){
+
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(()->new RecipeNotFoundException("Recipe with " + recipeId + " not found"));
+
+        //Email from token
+        String emailFromToken = jwtUtil.extractEmail(token);
+        if(!recipe.getCustomer().getEmail().equals(emailFromToken)){
+            throw new UnAuthorizedException("You can only delete your own recipes");
         }
+
+        recipeRepository.deleteById(recipeId);
+        return ResponseEntity.ok("Recipe Deleted");
+
+
+//        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+//        if(recipe.isPresent()){
+//            recipeRepository.deleteById(recipeId);
+//            return ResponseEntity.ok("Recipe deleted");
+//        }else{
+//            throw new RecipeNotFoundException("Recipe with " + recipeId + " not found");
+//        }
     }
 
-    public ResponseEntity<RecipeDTO> updateRecipe(Recipe recipe, Long recipeId){
+    public ResponseEntity<RecipeDTO> updateRecipe(Recipe recipe, Long recipeId, String token){
         Recipe existingRecipe = recipeRepository.findById(recipeId)
                 .orElseThrow(()->new RecipeNotFoundException("Recipe with " + recipeId + " not found"));
+
+        //Email from token
+        String emailFromToken = jwtUtil.extractEmail(token);
+        if(!existingRecipe.getCustomer().getEmail().equals(emailFromToken)){
+            throw new UnAuthorizedException("You can only update your own recipes!");
+        }
 
 //        if(recipe.getTitle() != null) existingRecipe.setTitle(recipe.getTitle());
 //        if(recipe.getImage() !=null) existingRecipe.setImage(recipe.getImage());
@@ -110,10 +129,15 @@ public class RecipeService {
         return ResponseEntity.ok(recipeDTOS);
     }
 
-    public ResponseEntity<List<RecipeDTO>> getAllRecipesByCustomerId(Long customerId) {
-       customerRepository.findById(customerId)
+    public ResponseEntity<List<RecipeDTO>> getAllRecipesByCustomerId(Long customerId, String token) {
+       Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(()->new CustomerNotFoundException("Customer with " + customerId + " not found"));
 
+       //Email from token
+       String emailFromToken = jwtUtil.extractEmail(token);
+       if(!customer.getEmail().equals(emailFromToken)){
+            throw new UnAuthorizedException("You only view your own recipes");
+       }
         List<Recipe> recipes = recipeRepository.findAllByCustomerId(customerId);
         if(recipes.isEmpty()){
             return ResponseEntity.ok(Collections.emptyList());

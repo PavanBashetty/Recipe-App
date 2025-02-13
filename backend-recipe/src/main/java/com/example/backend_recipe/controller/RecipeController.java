@@ -48,20 +48,23 @@ public class RecipeController {
 
     //works
     @PutMapping("/{recipeId}")
-    public ResponseEntity<RecipeDTO> updateRecipe(@RequestBody Recipe recipe, @PathVariable Long recipeId){
-        return recipeService.updateRecipe(recipe,recipeId);
+    public ResponseEntity<RecipeDTO> updateRecipe(@RequestBody Recipe recipe, @PathVariable Long recipeId, @RequestHeader("Authorization") String token){
+        String extractedToken = token.substring(7);
+        return recipeService.updateRecipe(recipe,recipeId, extractedToken);
     }
 
     //Works
     @DeleteMapping("/{recipeId}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable Long recipeId){
-        return recipeService.deleteRecipe(recipeId);
+    public ResponseEntity<String> deleteRecipe(@PathVariable Long recipeId, @RequestHeader("Authorization") String token){
+        String extractedToken = token.substring(7);
+        return recipeService.deleteRecipe(recipeId, extractedToken);
     }
 
     //works
     @GetMapping("/customer/{customerId}")
-    public ResponseEntity<List<RecipeDTO>> getAllRecipesByCustomerId(@PathVariable Long customerId){
-        return recipeService.getAllRecipesByCustomerId(customerId);
+    public ResponseEntity<List<RecipeDTO>> getAllRecipesByCustomerId(@PathVariable Long customerId, @RequestHeader("Authorization") String token){
+        String extractedToken = token.substring(7);
+        return recipeService.getAllRecipesByCustomerId(customerId, extractedToken);
     }
 
     //works
