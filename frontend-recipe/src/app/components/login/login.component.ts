@@ -29,6 +29,8 @@ export class LoginComponent {
     this.authService.login(this.loginData).subscribe({
       next:(response)=>{
         const token = response['token'];
+        const decodedToken = this.authService.decodeToken(token);
+        this.authService.storeCustomerId(decodedToken.customerId);
         this.authService.storeToken(token);
         alert("Login successfull");
         this.router.navigate(['/dashboard'])

@@ -15,4 +15,8 @@ export class ApiService {
   getAllRecipesAPI():Observable<Recipe[]>{
     return this.http.get<Recipe[]>(`${environment.RECIPE_URL}/all`);
   }
+
+  getYourRecipesAPI(customerId:number):Observable<Recipe[]>{
+    return this.http.get<Recipe[]>(`${environment.RECIPE_URL}/customer/${customerId}`);
+  }
 }

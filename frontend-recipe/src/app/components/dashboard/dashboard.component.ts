@@ -24,7 +24,6 @@ export class DashboardComponent {
     this.apiService.getAllRecipesAPI().subscribe({
       next:(data:Recipe[])=>{
         this.recipeList = data;
-        console.log(this.recipeList);
       },
       error:(error)=>{console.error(error)}
     })

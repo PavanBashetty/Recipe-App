@@ -17,10 +17,11 @@ public class JwtUtil {
 
     private Key getSigningKey(){return SECRET_KEY;}
 
-    public String generateToken(String email){
+    public String generateToken(String email, Long customerId){
         long EXPIRATION_TIME = 1000 * 60 * 60 * 2;
         return Jwts.builder()
                 .setSubject(email)
+                .claim("customerId", customerId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -34,6 +35,15 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+    }
+
+    public Long extractCustomerId(String token){
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return  claims.get("customerId", Long.class);
     }
 
     public Date extractExpiration(String token){

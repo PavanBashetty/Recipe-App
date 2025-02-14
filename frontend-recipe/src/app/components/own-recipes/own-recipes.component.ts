@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 import { Recipe } from '../../_model/interface/Recipe';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-own-recipes',
@@ -11,5 +12,11 @@ import { Recipe } from '../../_model/interface/Recipe';
 export class OwnRecipesComponent {
 
   ownRecipeList:Recipe[] = [];
+
+  constructor(private apiService:ApiService){}
+
+  ngOnInit(){}
+
+  getYourRecipes(){}
 
 }

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { AuthResponse } from '../_model/interface/AuthResponse';
 import { Customer } from '../_model/interface/customer';
 import { environment } from '../../environments/environment';
+import {jwtDecode} from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +26,19 @@ export class AuthService {
     localStorage.setItem('jwtToken',token);
   }
 
+  storeCustomerId(customerId:string){
+    localStorage.setItem('customerId',customerId);
+  }
+
   getToken():string | null{
     return localStorage.getItem('jwtToken');
   }
 
   isLoggedIn():boolean{
     return !!this.getToken();
+  }
+
+  decodeToken(token:string):any{
+    return jwtDecode(token);
   }
 }

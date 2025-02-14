@@ -50,6 +50,10 @@ public class AuthService {
     public String login(AuthLoginRequest authLoginRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authLoginRequest.getEmail(), authLoginRequest.getPassword()));
-        return jwtUtil.generateToken(authLoginRequest.getEmail());
+
+        Customer customer = customerRepository.findByEmail(authLoginRequest.getEmail())
+                .orElseThrow(()->new CustomerNotFoundException("Customer not found with email " + authLoginRequest.getEmail()));
+
+        return jwtUtil.generateToken(authLoginRequest.getEmail(), customer.getId());
     }
 }
