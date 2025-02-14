@@ -76,15 +76,6 @@ public class RecipeService {
 
         recipeRepository.deleteById(recipeId);
         return ResponseEntity.ok("Recipe Deleted");
-
-
-//        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
-//        if(recipe.isPresent()){
-//            recipeRepository.deleteById(recipeId);
-//            return ResponseEntity.ok("Recipe deleted");
-//        }else{
-//            throw new RecipeNotFoundException("Recipe with " + recipeId + " not found");
-//        }
     }
 
     public ResponseEntity<RecipeDTO> updateRecipe(Recipe recipe, Long recipeId, String token){
