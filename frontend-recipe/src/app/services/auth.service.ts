@@ -26,10 +26,6 @@ export class AuthService {
     localStorage.setItem('jwtToken',token);
   }
 
-  storeCustomerId(customerId:string){
-    localStorage.setItem('customerId',customerId);
-  }
-
   getToken():string | null{
     return localStorage.getItem('jwtToken');
   }

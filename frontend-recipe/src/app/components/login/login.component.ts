@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Customer } from '../../_model/interface/customer';
+import { customerIdShareObservable } from '../../services/customerId-Obv.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
   loginForm:FormGroup = new FormGroup({});
   loginData!:Partial<Customer>
 
-  constructor(private authService:AuthService, private formBuilder:FormBuilder, private router:Router){}
+  constructor(private authService:AuthService, private formBuilder:FormBuilder, private router:Router, private custIdService:customerIdShareObservable){}
 
   ngOnInit(){
     this.loginForm = this.formBuilder.group({
@@ -30,7 +31,7 @@ export class LoginComponent {
       next:(response)=>{
         const token = response['token'];
         const decodedToken = this.authService.decodeToken(token);
-        this.authService.storeCustomerId(decodedToken.customerId);
+        this.custIdService.setCustomerId(decodedToken.customerId);
         this.authService.storeToken(token);
         alert("Login successfull");
         this.router.navigate(['/dashboard'])

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 import { Recipe } from '../../_model/interface/Recipe';
 import { ApiService } from '../../services/api.service';
+import { customerIdShareObservable } from '../../services/customerId-Obv.service';
 
 @Component({
   selector: 'app-own-recipes',
@@ -12,11 +13,21 @@ import { ApiService } from '../../services/api.service';
 export class OwnRecipesComponent {
 
   ownRecipeList:Recipe[] = [];
+  customerId!:number;
+  constructor(private apiService:ApiService, private custIdService:customerIdShareObservable){}
 
-  constructor(private apiService:ApiService){}
+  ngOnInit(){
+    this.getYourRecipes();
+  }
 
-  ngOnInit(){}
-
-  getYourRecipes(){}
+  getYourRecipes(){
+    this.customerId = Number(this.custIdService.getCustomerId());
+    this.apiService.getYourRecipesAPI(this.customerId).subscribe({
+      next:(data:Recipe[])=>{
+        this.ownRecipeList = data;
+      },
+      error:(error)=>{console.error(error)}
+    })
+  }
 
 }
