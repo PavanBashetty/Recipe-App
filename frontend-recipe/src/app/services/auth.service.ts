@@ -3,22 +3,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../_model/interface/AuthResponse';
 import { Customer } from '../_model/interface/customer';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private authURL:string = "http://localhost:8080/api/auth";
-
   constructor(private http:HttpClient) { }
 
   register(newCustomer:Partial<Customer>):Observable<AuthResponse>{
-    return this.http.post<AuthResponse>(`${this.authURL}/register`,newCustomer);
+    return this.http.post<AuthResponse>(`${environment.AUTH_URL}/register`,newCustomer);
   }
 
   login(loginData:Partial<Customer>):Observable<any>{
-    return this.http.post<any>(`${this.authURL}/login`,loginData);
+    return this.http.post<any>(`${environment.AUTH_URL}/login`,loginData);
   }
 
   storeToken(token:string){

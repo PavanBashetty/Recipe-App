@@ -1,41 +1,39 @@
 /* Dark Theme */
 .dark-theme {
-    background-color: #1f1f1f;
-    color: white;
-  }
-  
-  /* Light Theme */
-  .light-theme {
-    background-color: white;
-    color: black;
-  }
-  
-  /* Smooth transition effect */
-  body {
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
+  background-color: #1f1f1f;
+  color: white;
+}
+
+/* Light Theme */
+.light-theme {
+  background-color: white;
+  color: black;
+}
+
+/* Smooth transition effect */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* Theme Toggle Button */
 button.theme-toggle {
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 10px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  /* Light Theme Button */
-  .light-theme .theme-toggle {
-    background: black;
-    color: white;
-  }
-  
-  /* Dark Theme Button */
-  .dark-theme .theme-toggle {
-    background: white;
-    color: black;
-  }
-  
-  
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Theme Button */
+.light-theme .theme-toggle {
+  background: black;
+  color: white;
+}
+
+/* Dark Theme Button */
+.dark-theme .theme-toggle {
+  background: white;
+  color: black;
+}

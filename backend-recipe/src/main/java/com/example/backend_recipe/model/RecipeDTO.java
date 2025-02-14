@@ -7,13 +7,15 @@ public class RecipeDTO {
     private Long id;
     private String title;
     private String description;
+    private String image;
     private List<Long> likes = new ArrayList<>();
 
-    public RecipeDTO(Long id, String title, String description, List<Long> likes) {
+    public RecipeDTO(Long id, String title, String description, List<Long> likes, String image) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.likes = likes;
+        this.image =image;
     }
 
     public Long getId() {
@@ -46,5 +48,13 @@ public class RecipeDTO {
 
     public void setLikes(List<Long> likes) {
         this.likes = likes;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -6,6 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RegisterComponent } from './components/register/register.component';
 import { authGuard } from './_guards/auth.guard';
 import { loginGuard } from './_guards/login.guard';
+import { OwnRecipesComponent } from './components/own-recipes/own-recipes.component';
 
 export const routes: Routes = [
 
@@ -18,6 +19,7 @@ export const routes: Routes = [
         children:[
             {path:'',redirectTo:'dashboard',pathMatch:'full'},
             {path:'dashboard',component:DashboardComponent},
+            {path:'ownrecipes',component:OwnRecipesComponent},
             {path:'about',component:AboutComponent}
         ]
     },

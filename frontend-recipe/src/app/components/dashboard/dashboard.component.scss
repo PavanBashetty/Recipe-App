@@ -1,0 +1,13 @@
+div {
+    overflow-y: auto;
+    height: calc(100vh - 64px); /* Adjust based on your header height */
+    padding: 16px;
+  }
+
+  
+  .fab-container {
+    position: fixed;
+    bottom: -30px; /* Adjusts the button height from bottom */
+    right: 10px;  /* Adjusts the button position from right */
+    z-index: 1000; /* Ensures it stays on top */
+}

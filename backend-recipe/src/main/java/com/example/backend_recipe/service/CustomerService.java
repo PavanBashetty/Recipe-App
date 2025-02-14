@@ -66,7 +66,8 @@ public class CustomerService {
                                         recipe.getId(),
                                         recipe.getTitle(),
                                         recipe.getDescription(),
-                                        recipe.getLikes()
+                                        recipe.getLikes(),
+                                        recipe.getImage()
                                 )).collect(Collectors.toList())
                 )).collect(Collectors.toList());
         return ResponseEntity.ok(customerDTOS);
