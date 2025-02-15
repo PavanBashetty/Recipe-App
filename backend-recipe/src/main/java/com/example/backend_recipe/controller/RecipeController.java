@@ -34,7 +34,7 @@ public class RecipeController {
         return recipeService.createRecipe(recipe,customer, extractedToken);
     }
 
-    //works
+    //works, is getting called from frontend
     @GetMapping("/all")
     public ResponseEntity<List<RecipeDTO>> getAllRecipes(){
         return recipeService.getAllRecipes();
@@ -60,7 +60,7 @@ public class RecipeController {
         return recipeService.deleteRecipe(recipeId, extractedToken);
     }
 
-    //works
+    //works, is getting called from frontend
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<List<RecipeDTO>> getAllRecipesByCustomerId(@PathVariable Long customerId, @RequestHeader("Authorization") String token){
         String extractedToken = token.substring(7);

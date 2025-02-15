@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
+import { customerIdShareObservable } from '../../services/customerId-Obv.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ import { ThemeService } from '../../services/theme.service';
 export class HeaderComponent {
 
   isDarkMode:string = '';
-  constructor(private themeService:ThemeService, private router:Router){}
+  constructor(private themeService:ThemeService, private router:Router, private custIdService:customerIdShareObservable){}
 
 
   ngOnInit(){
@@ -27,6 +28,8 @@ export class HeaderComponent {
     this.themeService.toggleTheme();
   }
   logout(){
+    this.custIdService.clearCustomerId();
+    localStorage.removeItem('user-theme');
     localStorage.removeItem('jwtToken');
     this.router.navigate(['/login']);
   }

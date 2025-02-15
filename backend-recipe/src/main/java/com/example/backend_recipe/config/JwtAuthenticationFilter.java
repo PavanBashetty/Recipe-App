@@ -13,9 +13,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private static final Logger logger = Logger.getLogger(JwtAuthenticationFilter.class.getName());
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -32,6 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             token = authorizationHeader.substring(7);
             email = jwtUtil.extractEmail(token);
+            logger.info("Email successfully extracted from token: " + email);
         }
 
         if(email != null & SecurityContextHolder.getContext().getAuthentication()== null){
@@ -40,8 +44,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                logger.info("JWT token validated and authentication set for email: " + email);
+            }else{
+                logger.warning("Invalidate JWT token for email: " + email);
             }
         }
         filterChain.doFilter(request,response);
+        logger.info("JWT Authentication Filter completed");
     }
 }
