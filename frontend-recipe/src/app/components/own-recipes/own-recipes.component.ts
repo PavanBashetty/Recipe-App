@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 import { Recipe } from '../../_model/interface/Recipe';
 import { ApiService } from '../../services/api.service';
-import { customerIdShareObservable } from '../../services/customerId-Obv.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-own-recipes',
@@ -14,7 +14,7 @@ export class OwnRecipesComponent {
 
   ownRecipeList:Recipe[] = [];
   customerId!:number;
-  constructor(private apiService:ApiService, private custIdService:customerIdShareObservable){}
+  constructor(private apiService:ApiService, private custIdService:SharedService){}
 
   ngOnInit(){
     this.getYourRecipes();

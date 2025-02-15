@@ -18,7 +18,7 @@ public class JwtUtil {
     private Key getSigningKey(){return SECRET_KEY;}
 
     public String generateToken(String email, Long customerId){
-        long EXPIRATION_TIME = 1000 * 60 * 60 * 2;
+        long EXPIRATION_TIME = 1000 * 60 * 60 * 10;
         return Jwts.builder()
                 .setSubject(email)
                 .claim("customerId", customerId)

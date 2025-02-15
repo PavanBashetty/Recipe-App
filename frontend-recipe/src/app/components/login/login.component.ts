@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Customer } from '../../_model/interface/customer';
-import { customerIdShareObservable } from '../../services/customerId-Obv.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent {
   loginForm:FormGroup = new FormGroup({});
   loginData!:Partial<Customer>
 
-  constructor(private authService:AuthService, private formBuilder:FormBuilder, private router:Router, private custIdService:customerIdShareObservable){}
+  constructor(private authService:AuthService, private formBuilder:FormBuilder, private router:Router, private custIdService:SharedService){}
 
   ngOnInit(){
     this.loginForm = this.formBuilder.group({

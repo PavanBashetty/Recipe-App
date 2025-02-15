@@ -1,0 +1,29 @@
+<form class="container p-4 border rounded shadow-sm bg-light" (ngSubmit)="submitNewRecipe()">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" id="title" class="form-control" placeholder="Eg: Idli" name="title" [(ngModel)]="recipeItem.title" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea id="description" class="form-control" placeholder="Eg: A delicious South Indian dish" name="description" [(ngModel)]="recipeItem.description" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">Image URL:</label>
+        <input type="text" id="image" class="form-control" placeholder="Eg: https://image-link.com/idli.jpg" name="image" [(ngModel)]="recipeItem.image" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label d-block">Food Type:</label>
+        <mat-radio-group [(ngModel)]="recipeItem.isVeg" name="isVeg" class="d-flex gap-3">
+            <mat-radio-button [value]="true">Vegetarian</mat-radio-button>
+            <mat-radio-button [value]="false">Non Vegetarian</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+        <button type="submit" mat-flat-button color="primary" class="btn btn-primary">Submit</button>
+        <button type="button" mat-raised-button color="warn" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+</form>

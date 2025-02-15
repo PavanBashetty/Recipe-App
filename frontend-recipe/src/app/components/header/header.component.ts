@@ -6,7 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
-import { customerIdShareObservable } from '../../services/customerId-Obv.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +17,7 @@ import { customerIdShareObservable } from '../../services/customerId-Obv.service
 export class HeaderComponent {
 
   isDarkMode:string = '';
-  constructor(private themeService:ThemeService, private router:Router, private custIdService:customerIdShareObservable){}
+  constructor(private themeService:ThemeService, private router:Router, private custIdService:SharedService){}
 
 
   ngOnInit(){

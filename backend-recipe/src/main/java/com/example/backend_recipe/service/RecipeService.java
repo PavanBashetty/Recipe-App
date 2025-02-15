@@ -50,7 +50,7 @@ public class RecipeService {
 
         recipeRepository.save(newRecipe);
         Map<String,String> response = new HashMap<>();
-        response.put("message","New recipe added for " + customer.getFullName());
+        response.put("message","New recipe added by " + customer.getFullName());
         return new ResponseEntity<>(response,HttpStatus.CREATED);
 
     }

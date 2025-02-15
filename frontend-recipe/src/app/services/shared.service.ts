@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
     providedIn:'root'
 })
-export class customerIdShareObservable{
+export class SharedService{
 
+    /* SHARED SERVICE 1: To share customerId */
     private customerIdSubject = new BehaviorSubject<string | null>(sessionStorage.getItem('customerId'));
     customerId$ = this.customerIdSubject.asObservable();
 
@@ -21,6 +22,14 @@ export class customerIdShareObservable{
     clearCustomerId(){
         sessionStorage.removeItem('customerId');
         this.customerIdSubject.next(null);
+    }
+
+    /* SHARED SERVICE 2: To trigger getAllRecipe() method from dashboard component */
+    private refreshDashboardSubject = new Subject<void>();
+    refreshDashboard$ = this.refreshDashboardSubject.asObservable();
+
+    triggerRefresh(){
+        this.refreshDashboardSubject.next();
     }
 
 }

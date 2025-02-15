@@ -26,7 +26,7 @@ public class RecipeController {
         this.customerService = customerService;
     }
 
-    //works
+    //works, is getting called from frontend
     @PostMapping("/customer/{customerId}")
     public ResponseEntity<Map<String,String>> createRecipe(@RequestBody Recipe recipe, @PathVariable Long customerId, @RequestHeader("Authorization") String token){
         Customer customer = customerService.findCustomerById(customerId);

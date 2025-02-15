@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthResponse } from '../_model/interface/AuthResponse';
+import { StringResponse } from '../_model/interface/StringResponse';
 import { Customer } from '../_model/interface/customer';
 import { environment } from '../../environments/environment';
 import {jwtDecode} from 'jwt-decode';
@@ -14,8 +14,8 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
 
-  register(newCustomer:Partial<Customer>):Observable<AuthResponse>{
-    return this.http.post<AuthResponse>(`${environment.AUTH_URL}/register`,newCustomer);
+  register(newCustomer:Partial<Customer>):Observable<StringResponse>{
+    return this.http.post<StringResponse>(`${environment.AUTH_URL}/register`,newCustomer);
   }
 
   login(loginData:Partial<Customer>):Observable<any>{

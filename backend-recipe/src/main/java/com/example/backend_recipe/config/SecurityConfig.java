@@ -41,14 +41,15 @@ public class SecurityConfig {
         logger.info("Configuring security filter chain");
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors->cors.configurationSource(request -> {
-                    CorsConfiguration configuration = new CorsConfiguration();
-                    configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-                    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-                    configuration.setExposedHeaders(List.of("*"));
-                    configuration.setAllowCredentials(true);
-                    return configuration;
-                }))
+                .cors(Customizer.withDefaults())
+//                .cors(cors->cors.configurationSource(request -> {
+//                    CorsConfiguration configuration = new CorsConfiguration();
+//                    configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+//                    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+//                    configuration.setExposedHeaders(List.of("*"));
+//                    configuration.setAllowCredentials(true);
+//                    return configuration;
+//                }))
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
