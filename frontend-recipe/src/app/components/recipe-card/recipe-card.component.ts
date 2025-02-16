@@ -5,6 +5,8 @@ import {MatCardModule} from '@angular/material/card';
 import { Recipe } from '../../_model/interface/Recipe';
 import {MatIconModule} from '@angular/material/icon';
 import { SharedService } from '../../services/shared.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateRecipeComponent } from '../create-recipe/create-recipe.component';
 
 @Component({
   selector: 'app-recipe-card',
@@ -15,7 +17,7 @@ import { SharedService } from '../../services/shared.service';
 export class RecipeCardComponent {
 
   @Input() recipes!:Recipe[];
-  constructor(private apiService:ApiService, private sharedService:SharedService){}
+  constructor(private apiService:ApiService, private sharedService:SharedService, private dialogRef:MatDialog){}
   customerId!:number;
   @Input() displayEditDeleteBtn!:boolean;
 
@@ -23,7 +25,7 @@ export class RecipeCardComponent {
 
   toggleLikeRecipe(recipeId:number){
     this.customerId = Number(this.sharedService.getCustomerId());
-    this.apiService.toggleLikeRecipeAPI(recipeId,this.customerId).subscribe({
+    this.apiService.toggleLikeRecipeRequest(recipeId,this.customerId).subscribe({
       next:(data:Recipe)=>{
         alert('success');
         if(this.displayEditDeleteBtn){
@@ -37,7 +39,7 @@ export class RecipeCardComponent {
   }
 
   deleteRecipe(recipeId:number){
-    this.apiService.deleteRecipeAPI(recipeId).subscribe({
+    this.apiService.deleteRecipeRequest(recipeId).subscribe({
       next:(response)=>{
         alert(response['message']);
         this.sharedService.triggerOwnRecipeRefresh();
@@ -45,5 +47,13 @@ export class RecipeCardComponent {
       error:(error)=>{console.error(error)}
     })
   }
-  editRecipe(recipeId:number){}
+
+  editRecipe(selectedRecipe:Recipe, selectedRecipeId:number){
+    this.dialogRef.open(CreateRecipeComponent,{
+      data:{
+        recipe:selectedRecipe,
+        recipeId:selectedRecipeId
+      }
+    })
+  }
 }

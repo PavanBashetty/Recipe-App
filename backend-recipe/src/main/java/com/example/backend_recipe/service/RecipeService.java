@@ -59,7 +59,7 @@ public class RecipeService {
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow(()-> new RecipeNotFoundException("Recipe with " + recipeId + " not found"));
 
-        RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getTitle(),recipe.getDescription(), recipe.getLikes(), recipe.getImage());
+        RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getTitle(),recipe.getDescription(), recipe.getLikes(), recipe.getImage(), recipe.isVeg());
         return ResponseEntity.ok(recipeDTO);
     }
 
@@ -102,7 +102,7 @@ public class RecipeService {
         Optional.of(recipe.isVeg()).ifPresent(existingRecipe::setVeg);
         recipeRepository.save(existingRecipe);
 
-        RecipeDTO recipeDTO = new RecipeDTO(existingRecipe.getId(),existingRecipe.getTitle(),existingRecipe.getDescription(),existingRecipe.getLikes(), recipe.getImage());
+        RecipeDTO recipeDTO = new RecipeDTO(existingRecipe.getId(),existingRecipe.getTitle(),existingRecipe.getDescription(),existingRecipe.getLikes(), recipe.getImage(), recipe.isVeg());
 
         return ResponseEntity.ok(recipeDTO);
     }
@@ -118,7 +118,8 @@ public class RecipeService {
                         recipe.getTitle(),
                         recipe.getDescription(),
                         recipe.getLikes(),
-                        recipe.getImage()
+                        recipe.getImage(),
+                        recipe.isVeg()
                 )).toList();
         return ResponseEntity.ok(recipeDTOS);
     }
@@ -142,7 +143,8 @@ public class RecipeService {
                         recipe.getTitle(),
                         recipe.getDescription(),
                         recipe.getLikes(),
-                        recipe.getImage()
+                        recipe.getImage(),
+                        recipe.isVeg()
                 )).toList();
         return ResponseEntity.ok(recipeDTOS);
     };
@@ -170,7 +172,8 @@ public class RecipeService {
                 recipe.getTitle(),
                 recipe.getDescription(),
                 recipe.getLikes(),
-                recipe.getImage()
+                recipe.getImage(),
+                recipe.isVeg()
         );
 
         return ResponseEntity.ok(recipeDTO);

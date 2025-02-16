@@ -25,7 +25,7 @@
                 ({{ recipe.likes.length }})
                 <span class="flex-spacer"></span>
                 @if (displayEditDeleteBtn) {
-                    <button mat-icon-button aria-label="Edit Recipe" (click)="editRecipe(recipe.id)">
+                    <button mat-icon-button aria-label="Edit Recipe" (click)="editRecipe(recipe,recipe.id)">
                         <mat-icon>edit</mat-icon>
                     </button>
                 }

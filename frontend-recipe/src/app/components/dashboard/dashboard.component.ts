@@ -35,7 +35,7 @@ export class DashboardComponent {
   }
 
   getAllRecipes(){
-    this.apiService.getAllRecipesAPI().subscribe({
+    this.apiService.getAllRecipesRequest().subscribe({
       next:(data:Recipe[])=>{
         this.recipeList = data;
       },

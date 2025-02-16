@@ -9,13 +9,15 @@ public class RecipeDTO {
     private String description;
     private String image;
     private List<Long> likes = new ArrayList<>();
+    private boolean veg;
 
-    public RecipeDTO(Long id, String title, String description, List<Long> likes, String image) {
+    public RecipeDTO(Long id, String title, String description, List<Long> likes, String image, boolean veg) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.likes = likes;
         this.image =image;
+        this.veg = veg;
     }
 
     public Long getId() {
@@ -56,5 +58,13 @@ public class RecipeDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isVeg() {
+        return veg;
+    }
+
+    public void setVeg(boolean veg) {
+        this.veg = veg;
     }
 }

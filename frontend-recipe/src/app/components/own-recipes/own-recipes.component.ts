@@ -27,7 +27,7 @@ export class OwnRecipesComponent {
 
   getYourRecipes(){
     this.customerId = Number(this.sharedService.getCustomerId());
-    this.apiService.getYourRecipesAPI(this.customerId).subscribe({
+    this.apiService.getYourRecipesRequest(this.customerId).subscribe({
       next:(data:Recipe[])=>{
         this.ownRecipeList = data;
       },

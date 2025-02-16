@@ -95,4 +95,18 @@ public class Recipe {
     public void setLikes(List<Long> likes) {
         this.likes = likes;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", customer=" + customer +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", veg=" + veg +
+                ", createdAt=" + createdAt +
+                ", likes=" + likes +
+                '}';
+    }
 }
