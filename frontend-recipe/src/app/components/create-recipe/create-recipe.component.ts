@@ -37,7 +37,7 @@ export class CreateRecipeComponent {
       next:(response)=>{
         alert(response['message']);
         this.cancel();
-        this.sharedService.triggerRefresh();
+        this.sharedService.triggerDashboardRefresh();
       },
       error:(error)=>{console.error(error)}
     })

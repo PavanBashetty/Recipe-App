@@ -1,7 +1,6 @@
 package com.example.backend_recipe.config;
 
 import com.example.backend_recipe.service.CustomUserDetailsService;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +28,7 @@ import java.util.logging.Logger;
 public class SecurityConfig {
 
     private static final Logger logger = Logger.getLogger(SecurityConfig.class.getName());
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(SecurityConfig.class);
+
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;

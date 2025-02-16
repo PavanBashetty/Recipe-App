@@ -7,11 +7,11 @@ import { BehaviorSubject, Subject } from "rxjs";
 export class SharedService{
 
     /* SHARED SERVICE 1: To share customerId */
-    private customerIdSubject = new BehaviorSubject<string | null>(sessionStorage.getItem('customerId'));
+    private customerIdSubject = new BehaviorSubject<string | null>(localStorage.getItem('customerId'));
     customerId$ = this.customerIdSubject.asObservable();
 
     setCustomerId(customerId:string){
-        sessionStorage.setItem('customerId',customerId);
+        localStorage.setItem('customerId',customerId);
         this.customerIdSubject.next(customerId);
     }
 
@@ -20,7 +20,7 @@ export class SharedService{
     }
 
     clearCustomerId(){
-        sessionStorage.removeItem('customerId');
+        localStorage.removeItem('customerId');
         this.customerIdSubject.next(null);
     }
 
@@ -28,7 +28,7 @@ export class SharedService{
     private refreshDashboardSubject = new Subject<void>();
     refreshDashboard$ = this.refreshDashboardSubject.asObservable();
 
-    triggerRefresh(){
+    triggerDashboardRefresh(){
         this.refreshDashboardSubject.next();
     }
 

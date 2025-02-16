@@ -24,4 +24,8 @@ export class ApiService {
   createRecipeAPI(newRecipe: Partial<Recipe>, customerId:number):Observable<StringResponse>{
     return this.http.post<StringResponse>(`${environment.RECIPE_URL}/customer/${customerId}`,newRecipe);
   }
+
+  toggleLikeRecipeAPI(recipeId:number, customerId:number):Observable<Recipe>{
+    return this.http.put<Recipe>(`${environment.RECIPE_URL}/${recipeId}/customer/${customerId}`,null);
+  }
 }

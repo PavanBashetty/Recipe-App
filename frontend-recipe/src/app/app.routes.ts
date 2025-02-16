@@ -9,7 +9,6 @@ import { loginGuard } from './_guards/login.guard';
 import { OwnRecipesComponent } from './components/own-recipes/own-recipes.component';
 
 export const routes: Routes = [
-
     {path:'login',component:LoginComponent, canActivate:[loginGuard]},
     {path:'register',component:RegisterComponent, canActivate:[loginGuard]},
     {

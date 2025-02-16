@@ -67,7 +67,7 @@ public class RecipeController {
         return recipeService.getAllRecipesByCustomerId(customerId, extractedToken);
     }
 
-    //works
+    //works, is getting called from frontend
     @PutMapping("/{recipeId}/customer/{customerId}")
     public ResponseEntity<RecipeDTO> likeRecipe(@PathVariable Long recipeId, @PathVariable Long customerId){
         return recipeService.likeRecipe(recipeId,customerId);
