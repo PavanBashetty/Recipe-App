@@ -26,12 +26,24 @@ export class RecipeCardComponent {
     this.apiService.toggleLikeRecipeAPI(recipeId,this.customerId).subscribe({
       next:(data:Recipe)=>{
         alert('success');
-        this.sharedService.triggerDashboardRefresh();
+        if(this.displayEditDeleteBtn){
+          this.sharedService.triggerOwnRecipeRefresh();
+        }else{
+          this.sharedService.triggerDashboardRefresh();
+        }
       },
       error:(error)=>{console.error(error)}
     })
   }
 
-  deleteRecipe(recipeId:number){}
+  deleteRecipe(recipeId:number){
+    this.apiService.deleteRecipeAPI(recipeId).subscribe({
+      next:(response)=>{
+        alert(response['message']);
+        this.sharedService.triggerOwnRecipeRefresh();
+      },
+      error:(error)=>{console.error(error)}
+    })
+  }
   editRecipe(recipeId:number){}
 }

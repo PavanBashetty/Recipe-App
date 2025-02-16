@@ -55,7 +55,7 @@ public class RecipeController {
 
     //Works
     @DeleteMapping("/{recipeId}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable Long recipeId, @RequestHeader("Authorization") String token){
+    public ResponseEntity<Map<String,String>> deleteRecipe(@PathVariable Long recipeId, @RequestHeader("Authorization") String token){
         String extractedToken = token.substring(7);
         return recipeService.deleteRecipe(recipeId, extractedToken);
     }

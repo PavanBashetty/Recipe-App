@@ -28,4 +28,8 @@ export class ApiService {
   toggleLikeRecipeAPI(recipeId:number, customerId:number):Observable<Recipe>{
     return this.http.put<Recipe>(`${environment.RECIPE_URL}/${recipeId}/customer/${customerId}`,null);
   }
+
+  deleteRecipeAPI(recipeId:number):Observable<StringResponse>{
+    return this.http.delete<StringResponse>(`${environment.RECIPE_URL}/${recipeId}`);
+  }
 }

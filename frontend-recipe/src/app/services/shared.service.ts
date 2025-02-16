@@ -32,4 +32,13 @@ export class SharedService{
         this.refreshDashboardSubject.next();
     }
 
+
+    /* SHARED SERVICE 3: To trigger getYourRecipes() method from ownRecipes component */
+    private refreshOwnRecipesSubject = new Subject<void>();
+    refreshOwnRecipe$ = this.refreshOwnRecipesSubject.asObservable();
+
+    triggerOwnRecipeRefresh(){
+        this.refreshOwnRecipesSubject.next();
+    }
+
 }

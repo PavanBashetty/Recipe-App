@@ -14,14 +14,19 @@ export class OwnRecipesComponent {
 
   ownRecipeList:Recipe[] = [];
   customerId!:number;
-  constructor(private apiService:ApiService, private custIdService:SharedService){}
+  constructor(private apiService:ApiService, private sharedService:SharedService){}
 
   ngOnInit(){
+    this.sharedService.refreshOwnRecipe$.subscribe({
+      next:()=>{this.getYourRecipes()},
+      error:(error)=>{console.error(error)}
+    })
+
     this.getYourRecipes();
   }
 
   getYourRecipes(){
-    this.customerId = Number(this.custIdService.getCustomerId());
+    this.customerId = Number(this.sharedService.getCustomerId());
     this.apiService.getYourRecipesAPI(this.customerId).subscribe({
       next:(data:Recipe[])=>{
         this.ownRecipeList = data;

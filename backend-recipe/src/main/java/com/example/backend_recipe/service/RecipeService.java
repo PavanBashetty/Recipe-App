@@ -63,7 +63,7 @@ public class RecipeService {
         return ResponseEntity.ok(recipeDTO);
     }
 
-    public ResponseEntity<String> deleteRecipe(Long recipeId, String token){
+    public ResponseEntity<Map<String,String>> deleteRecipe(Long recipeId, String token){
 
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow(()->new RecipeNotFoundException("Recipe with " + recipeId + " not found"));
@@ -75,7 +75,9 @@ public class RecipeService {
         }
 
         recipeRepository.deleteById(recipeId);
-        return ResponseEntity.ok("Recipe Deleted");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", " Recipe " + recipe.getTitle() +  " deleted");
+        return ResponseEntity.ok(response);
     }
 
     public ResponseEntity<RecipeDTO> updateRecipe(Recipe recipe, Long recipeId, String token){
